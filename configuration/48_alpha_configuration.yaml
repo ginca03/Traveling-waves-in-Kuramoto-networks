@@ -1,0 +1,26 @@
+experiment_id: '48_alpha'
+
+## Simulation parameters
+simulation_id: [0, 100, 1]  # [start_id, end_id, step] - excludes the end_id.
+integration_step_size: 1.0  # ms - time-step-size to be used in the differential euqation integration scheme.
+simulation_duration: 11000  # ms - duration for which the models should be evolved.
+initial_transient: 1000  # ms - transient to be removed from data.
+
+## Model parameters
+# network parameters
+coupling_strength: 1.438449888287663e-05  # global scaling of all connections
+conduction_speed: 10.0  # mm/ms conduction speed between nodes
+
+boundary_k_ring: -1
+
+band: 'alpha'
+intrinsic_frequency_mean: 10.  # Hz - Kuramoto oscillator intrinsic frequency mean
+intrinsic_frequency_standard_deviation: 0.0  # Hz - Kuramoto oscillator intrinsic frequency standard deviation
+
+## Data
+data_path: "data/"  # for singularity/docker container
+weights_path: "hcp_meg/nmf_weights_alpha.npy"
+lengths_path: "connectomes/Schaefer2018_HCP_S900/avg_lengths.npy"
+labels_path: "connectomes/Schaefer2018_HCP_S900/labels.npy"
+positions_path: "connectomes/Schaefer2018_HCP_S900/positions.npy"
+instrength_path: "connectomes/Schaefer2018_HCP_S900/instrength.npy"

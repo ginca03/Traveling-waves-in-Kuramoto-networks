@@ -1,0 +1,10 @@
+README.md
+setup.py
+modules/__init__.py
+modules/helpers.py
+modules/visualization.py
+modules/wave_detection_methods.py
+modules.egg-info/PKG-INFO
+modules.egg-info/SOURCES.txt
+modules.egg-info/dependency_links.txt
+modules.egg-info/top_level.txt

@@ -1,0 +1,7 @@
+# analysis parameters
+downsampling_factor: 5  # a.u. downsample the time steps by this factor
+
+# threshold for proportion of waves that need to be present for effective frequency estimation 
+proportion_waves_threshold: 0.0  # proportion of timesteps that need to exhibit waves
+
+data_path: "/data"

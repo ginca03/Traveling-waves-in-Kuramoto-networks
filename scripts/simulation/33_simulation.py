@@ -1,0 +1,132 @@
+#!/usr/bin/env python
+""" CONTROL - Cortical network model based on Schaefer parcellation
+
+This script is used to simulate a cortical network model consisting of Jansen-Rit neural masses oscillating at ~10 Hz. 
+These neural masses are connected via the structural connectome inferred from HCP subjects based on the 
+Schaefer et al. (2018) parcellation.
+
+Usage
+-----
+    python 33_simulation.py "configuration/your_configuration_file.yaml" simulation_idx
+
+Arguments
+---------
+configuration_path : String
+    Path to configuration file.
+    
+simulation_idx : int
+    Index for the simulation ID.
+"""
+
+
+import numpy as np
+import yaml
+from tvb.simulator.lab import *
+
+__author__ = "Dominik Koller"
+__date__ = "01. June 2022"
+__status__ = "Prototype"
+
+
+# Prepare Script
+# --------------
+# Read Configuration
+try:
+    configuration_path = sys.argv[1]
+    with open(configuration_path, "r") as ymlfile:
+        config = yaml.load(ymlfile, Loader=yaml.BaseLoader)
+except BaseException as e:
+    print("Error: Specify correct path to yaml configuration file.")
+    raise
+
+
+# Simulation Parameters
+# ---------------------
+data_path = config["data_path"]
+weights_path = config["weights_path"]
+lengths_path = config["lengths_path"]
+labels_path = config["labels_path"]
+positions_path = config["positions_path"]
+
+integration_step_size = float(config["integration_step_size"])  # ms
+simulation_duration = float(config["simulation_duration"])  # ms
+
+
+# Parameters to Explore
+# ---------------------
+simulation_idx = int(sys.argv[2])  # get idx
+sim_id_start, sim_id_end, sim_id_step = np.array(config["simulation_id"], dtype=int)
+simulation_id = np.arange(sim_id_start, sim_id_end, sim_id_step)[simulation_idx]
+
+print(f"Simulation {simulation_id}")
+
+
+# Model Parameters
+# ----------------
+# model parameters
+J = np.array(float(config["J"]))  # average number of synapses between populations
+r = np.array(float(config["r"]))
+
+# network parameters
+coupling_strength = np.array(float(config["coupling_strength"]))  # global scaling of all connections
+conduction_speed = float(config["conduction_speed"])  # mm/ms
+
+# load connectome 
+weights = np.load(os.path.join(data_path, weights_path))
+lengths = np.load(os.path.join(data_path, lengths_path))
+pos = np.load(os.path.join(data_path, positions_path))
+labels = np.load(os.path.join(data_path, labels_path))
+
+# Create Network
+# --------------
+# build connectivity
+sc = connectivity.Connectivity()
+sc.weights = weights
+sc.tract_lengths = lengths
+sc.centres = pos
+sc.region_labels = labels
+sc.undirected = True
+
+# configure structural connectivity of network
+sc.speed = np.array(conduction_speed)  # set the conduction speed of connections
+sc.configure()
+N = sc.number_of_regions
+
+# Jansen-Rit Model
+# ----------------
+# set global coupling of local models
+global_coupling = coupling.SigmoidalJansenRit(a=np.array([coupling_strength]), r=np.array([r]))
+
+# set up model
+model = models.JansenRit(J=np.array([J]), 
+                        variables_of_interest=('y1', 'y2')  # excitatory and inhibitory field potentials
+                        )
+
+
+# Simulation
+# ----------
+# initialise simulator
+sim = simulator.Simulator(model = model, 
+                          connectivity = sc,
+                          coupling = global_coupling, 
+                          conduction_speed = conduction_speed,
+                          integrator = integrators.RungeKutta4thOrderDeterministic(dt=integration_step_size), 
+                          simulation_length = simulation_duration,
+                          monitors = (monitors.Raw(), )
+                         )
+sim.configure()
+
+# run simulation
+(time, raw_data), = sim.run()
+data = np.squeeze(raw_data)
+
+
+# Post Processing
+# ---------------
+# The post-synaptic activity at the pyramidal population is usually interpreted as the lfp of the region.
+# This activity can be calculated by the difference of the post-synaptic potentials at pyramidal cells
+# due to excitatory (y1) and inhibitory (y2) interneurons. --> y = y1 - y2
+activity = (data[:,0,:] - data[:,1,:]).T
+
+# save data
+np.save(os.path.join(data_path, f"33_simulations/33_simulation_{simulation_id}.npy"), activity)

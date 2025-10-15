@@ -1,0 +1,24 @@
+##  parameters
+low_frequency_cutoff: 1.3  # Hz
+high_frequency_cutoff: 150
+notch_frequency: [60, 120]  # Hz
+
+min_duration: 80  # s - artifact-free minimum interval
+edge_effect_duration: 5  # s
+
+number_of_regions: 1000
+
+#decimation_factor: 4
+resampling_frequency: 100.0  # Hz - resample the data to this frequency to save memory and computation time.
+
+SNR: 1.0  # signal-to-noise ratio - is used for estimating the regularization parameter lambda2 - lambda2 = 1/SNR^2 - 1.0 is the MNE default for single-trial data.
+
+theta_band: [1.3, 5]  # Hz
+alpha_band: [5, 15]  # Hz
+beta_band: [15, 25]  # Hz
+gamma_band: [35, 45]  # Hz
+full_band: [1.3, 45]  # Hz
+
+
+## Data
+data_path: "data/"

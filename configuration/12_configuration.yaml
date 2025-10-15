@@ -1,0 +1,35 @@
+experiment_id: "12"
+
+## Simulation parameters
+simulation_id: [0, 100, 1]  # [start_id, end_id, step] - excludes the end_id
+integration_step_size: 1.0  # ms - time-step-size for integration scheme
+simulation_duration: 20000  # ms - duration for model evolution
+initial_transient: 1000  # ms - transient to be removed from data
+
+## Model parameters
+# Kuramoto oscillator parameters
+intrinsic_frequency_mean: 10.0  # Hz - Kuramoto oscillator intrinsic frequency mean
+intrinsic_frequency_standard_deviation: 0.0  # Hz - Kuramoto oscillator intrinsic frequency standard deviation
+
+# Network topology parameters
+nx: 30  # number of regions along x-dimension
+ny: 30  # number of regions along y-dimension
+x_extent: 140.0  # mm - extent of x-dimension
+y_extent: 140.0  # mm - extent of y-dimension
+
+# Connectivity parameters
+coupling_strength: 0.0003  # global scaling of all connections
+conduction_speed: 3.0  # mm/ms - conduction speed between nodes
+connection_strength_scaling: 10.0  # mm - scaling factor for distance-dependent connection strength
+connection_probability_scale: 17.0  # scale parameter for distance-dependent connection probability
+
+# Uniform in-strength parameters (from experiment 02)
+instrength_gradient_offset: 4.0  # uniform in-strength value for all nodes
+
+# Forcing parameters
+forcing_amplitude: 0.5  # amplitude of the periodic forcing
+forcing_frequency: 10.0  # Hz - frequency of the forcing signal
+# Note: forcing is applied to the entire left edge of the network
+
+## Data
+data_path: "data/"

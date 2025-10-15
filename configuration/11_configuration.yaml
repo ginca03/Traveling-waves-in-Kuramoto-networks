@@ -1,0 +1,42 @@
+experiment_id: 11
+
+## Simulation parameters
+simulation_id: [0, 100, 1]  # [start_id, end_id, step] - excludes the end_id
+integration_step_size: 1.0  # ms - time-step-size for integration scheme
+simulation_duration: 11000  # ms - duration for model evolution
+initial_transient: 1000  # ms - transient to be removed from data
+
+## Model parameters
+# Kuramoto oscillator parameters
+intrinsic_frequency_mean: 10.0  # Hz - Kuramoto oscillator intrinsic frequency mean
+intrinsic_frequency_standard_deviation: 0.0  # Hz - Kuramoto oscillator intrinsic frequency standard deviation
+
+# Network topology parameters
+nx: 30  # number of regions along x-dimension
+ny: 30  # number of regions along y-dimension
+x_extent: 140.0  # mm - extent of x-dimension
+y_extent: 140.0  # mm - extent of y-dimension
+
+# Connectivity parameters
+coupling_strength: 0.01  # global scaling of all connections
+conduction_speed: 3.0  # mm/ms - conduction speed between nodes
+connection_strength_scaling: 10.0  # mm - scaling factor for distance-dependent connection strength
+connection_probability_scale: 17.0  # scale parameter for distance-dependent connection probability
+
+# Gradient parameters
+instrength_gradient_offset: 4.0  # offset of in-strength gradient field
+gradient_scaling: 2.0  # scale the min-max normalized gradient
+sink_pos: [40.0, 40.0]  # mm - sink position (gaussian center)
+source_pos: [100.0, 100.0]  # mm - source position (gaussian center)
+singularity_width: 300.0  # mm^2 - width of sink and source (normal variance)
+
+# Forcing parameters
+forcing_amplitude: 0.5  # amplitude of the periodic forcing
+forcing_frequency: 10.0  # Hz - frequency of the forcing signal
+# Note: forcing is applied to the entire left edge of the network
+
+## Analysis parameters
+number_of_permutations: 1000  # integer, used in permutation-based analysis
+
+## Data
+data_path: "data/"

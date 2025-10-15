@@ -1,0 +1,26 @@
+experiment_id: 33
+
+## Simulation parameters
+simulation_id: [0, 100, 1]  # [start_id, end_id, step] - excludes the end_id.
+integration_step_size: 1.0  # ms - time-step-size to be used in the differential euqation integration scheme.
+simulation_duration: 12000  # ms - duration for which the models should be evolved.
+initial_transient: 1000  # ms - simulation and filter transient to be removed from data.
+final_transient: 1000  # ms - filter transient at the end.
+
+## Model parameters
+# network parameters
+coupling_strength: 0.0025  # global scaling of all connections
+conduction_speed: 3.0  # mm/ms conduction speed between nodes
+
+boundary_k_ring: -1
+
+J: 125  # average number of synapses between populations
+r: 0.56
+
+## Data
+data_path: "data/"  # for singularity/docker container
+weights_path: "connectomes/Schaefer2018_HCP_S900/avg_weights.npy"
+lengths_path: "connectomes/Schaefer2018_HCP_S900/avg_lengths.npy"
+labels_path: "connectomes/Schaefer2018_HCP_S900/labels.npy"
+positions_path: "connectomes/Schaefer2018_HCP_S900/positions.npy"
+instrength_path: "connectomes/Schaefer2018_HCP_S900/instrength.npy"

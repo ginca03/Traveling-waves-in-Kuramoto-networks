@@ -1,0 +1,25 @@
+experiment_id: '48'
+
+## Simulation parameters
+simulation_id: [0, 10, 1]  # [start_id, end_id, step] - excludes the end_id.
+integration_step_size: 1.0  # ms - time-step-size to be used in the differential euqation integration scheme.
+simulation_duration: 11000  # ms - duration for which the models should be evolved.
+initial_transient: 1000  # ms - transient to be removed from data.
+
+## Model parameters
+# network parameters to explore
+intrinsic_frequency: [1, 10., 20., 40.]  # Hz - Kuramoto oscillator intrinsic frequency mean
+coupling_strength: [-8, -2, 39]  # a.u. [start_id, end_id, number_of_steps]
+conduction_speed: [1.0, 10.0, 10]  # mm/ms conduction speed [start_id, end_id, number_of_steps]
+
+intrinsic_frequency_standard_deviation: 0.0  # Hz - Kuramoto oscillator intrinsic frequency standard deviation
+
+## Data
+data_path: "data/"  # for singularity/docker container
+save_path: "48_simulations/"
+
+weights_path: "hcp_meg/nmf_weights_"
+lengths_path: "connectomes/Schaefer2018_HCP_S900/avg_lengths.npy"
+labels_path: "connectomes/Schaefer2018_HCP_S900/labels.npy"
+positions_path: "connectomes/Schaefer2018_HCP_S900/positions.npy"
+instrength_path: "connectomes/Schaefer2018_HCP_S900/instrength.npy"

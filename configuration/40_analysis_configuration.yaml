@@ -1,0 +1,12 @@
+# analysis parameters
+downsampling_factor: 5  # a.u. downsample the time steps by this factor
+
+## detection parameters
+number_of_permutations: 100  # permutations for random surrogate data tests
+significance_level: 0.05  # significance level for surrogate data tests
+
+window_size: 100  # samples
+xcorr_step_size: 10  # samples
+
+data_path: "data/"
+save_path_analysis: "40_analysis/"
