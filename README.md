@@ -146,7 +146,7 @@ To set up the necessary environment, you will need [Conda](https://docs.conda.io
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/travelingwaves_code_rev1.git
+   git clone https://github.com/ginca03/Traveling-waves-in-Kuramoto-networks.git
    cd travelingwaves_code_rev1
    ```
 
@@ -251,9 +251,9 @@ This project is an implementation and adaptation of the methods and code develop
 
 The original authors of the code and study are:
 
-* [Dominik Koller](https://www.researchgate.net/profile/Dominik_Koller)
-* [Michael Schirner](https://www.brainsimulation.org/bsw/)
-* [Petra Ritter](https://www.brainsimulation.org/bsw/)
+* [Dominik Koller](https://scholar.google.com/citations?user=skNLEIwAAAAJ&hl=it&oi=ao)
+* [Michael Schirner](https://scholar.google.com/citations?user=rDGc-f4AAAAJ&hl=it&oi=ao)
+* [Petra Ritter](https://scholar.google.com/citations?hl=it&user=njHFeAsAAAAJ)
 
 ## References
 
